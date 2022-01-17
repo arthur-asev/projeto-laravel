@@ -1,10 +1,13 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Detalhes do Post')
+
 @section('content')
-<h1>Detalhes do Post {{$post->title}}</h1>
+    <h1>Detalhes do Post {{$post->title}}</h1>
 <ul>
     <li>{{$post->title}}</li>
     <li>{{$post->content}}</li>
+    <li><strong>Imagem: </strong> <img src="{{ url("storage/{$post->image}") }}" alt="{{ $post->title }}"></li>
 </ul>
 
 <form action="{{ route('posts.destroy', $post->id) }}" method="post">
