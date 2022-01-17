@@ -13,7 +13,7 @@
 </div>
 @endif
 
-<form method="POST" action='{{ route('posts.store')}}'>
+<form method="POST" action="{{ route('posts.store')}}">
 
     <input type="text" name="title" id="title" placeholder="Título" value="{{ old('title') }}">
     @csrf
