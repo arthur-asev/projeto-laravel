@@ -1,3 +1,7 @@
+@extends('admin.layouts.app')
+
+@section('content')
+
 <h1>Editar o Post <strong>{{ $post->title }}</strong></h1>
 
 @if ($errors->any())
@@ -23,3 +27,6 @@
 
 
 </form>
+
+    
+@endsection

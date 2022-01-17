@@ -1,3 +1,6 @@
+@extends('admin.layouts.app')
+
+@section('content')
 <h1>Cadastrar novo Post</h1>
 
 @if ($errors->any())
@@ -22,3 +25,4 @@
 
 
 </form>
+@endsection

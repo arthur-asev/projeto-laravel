@@ -1,8 +1,27 @@
-<h1>Listagem dos Posts</h1>
+@extends('admin.layouts.app')
+
+@section('title', 'Listagem dos Posts')
+
+@section('content')
+
+
 
 <div class="grid">
     <a href="{{ route('posts.create') }}" >Criar Novo Post</a>
 </div>
+
+    @if (session('message'))
+
+        <div>
+          {{ session('message')}}
+        </div>
+    @endif
+
+    <form action="{{ route('posts.search')}}" method="post">
+      @csrf
+      <input type="text" name="search" placeholder="Filtrar">
+      <button type="submit">Filtrar</button>
+    </form>
 
         @foreach ($posts as $post)
             <tr>
@@ -24,3 +43,5 @@
         {{ $posts->links() }}
     @endif
 </div>
+
+@endsection
