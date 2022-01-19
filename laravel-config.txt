@@ -7,3 +7,8 @@ GET,PUT,POST,PATH,DELETE
 
 
 .env config:FILESYSTEM_DRIVER=public
+
+
+comandos de otimizacao node
+npm run dev
+npm run prod

@@ -5,15 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Dog extends Model
 {
-    use HasFactory;
-
-    protected $table = 'posts';
+    protected $table = 'dogs';
 
     protected $fillable = [
-        'title',
-        'content',
-        'image',
+        'raca','nome','porte','image',
     ];
 }

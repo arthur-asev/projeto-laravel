@@ -15,14 +15,15 @@
 </div>
 @endif
 
-<form action="{{ route('posts.search')}}" method="post">
+<form class="search-bar" action="{{ route('posts.search')}}" method="post">
     @csrf
     <input type="text" name="search" placeholder="Filtrar">
     <button type="submit">Filtrar</button>
 </form>
 <h1>Posts</h1>
 @foreach ($posts as $post)
-<img src="{{ url("storage/{$post->image}") }}" alt="{{$post->title}}" style="max-width:100px;">
+<img class="inline-block h-12 w-12 rounded-full ring-2 ring-white" src="{{ url("storage/{$post->image}") }}"
+    alt="{{$post->title}}" style="max-width:100px;">
 <tr>
     <td>
         #{{ $post->id }}
