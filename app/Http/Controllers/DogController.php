@@ -12,6 +12,8 @@ class DogController extends Controller
     public function index()
     {
         return Dog::all();
+        $dogs = Dog::latest('id');
+        return view('admin.posts.dogsindex', compact('dogs'));
     }
 
     public function store(Request $request)

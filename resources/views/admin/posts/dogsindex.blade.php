@@ -1,6 +1,7 @@
 <link  href="{{ url('css/dogs.css')}}" rel="stylesheet">
 
-<h1>Cachorro</h1>
+<h1>Cachorros</h1>
+<h1>teste123123</h1>
 <ul class="dogs-list">
     <li>Nome: {{$dogs->nome}}</li>
     <li>Raça: {{$dogs->raca}}</li>

@@ -14,6 +14,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/dogs/{id}',[DogController::class,'show'])->name('dogs.show');
+    Route::get('/dogs',[DogController::class,'index'])->name('dogs.index');
 });
 
 Route::get('/', function () {
