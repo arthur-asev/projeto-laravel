@@ -10,8 +10,9 @@
 
 
 @csrf
-<input type="file" name="image" id="image">
-<input type="text" name="title" id="title" placeholder="Título" value="{{ $post->title ?? old('title') }}">
-<textarea name="content" id="content" cols="30" rows="4"
+<input class="form-control mb2" type="text" name="title" id="title" placeholder="Título" value="{{ $post->title ?? old('title') }}">
+<textarea class="form-control " name="content" id="content" cols="30" rows="4"
     placeholder="Conteúdo">{{ $post->content ?? old('content') }}</textarea>
-<button class="bg-sky-600 hover:bg-sky-700 ..." type="submit">Enviar</button>
+    <label class="label-file mb2" for="image">Enviar arquivo</label>
+    <input  type="file" name="image" id="image">
+<button class=" btn btn-outline-success " type="submit">Enviar</button>

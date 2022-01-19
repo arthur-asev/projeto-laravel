@@ -1,0 +1,83 @@
+.ring-image{
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    padding: 0.2rem;
+}
+
+.post-details ul{
+    list-style: none;
+}
+
+.image-details{
+
+    max-width: 500px;
+}
+
+.btn-p2{
+    margin-left: 2rem;
+}
+
+.search-bar{
+    display: flex;
+    flex-wrap: nowrap;
+    
+}
+
+.ml2{
+    margin-left:
+    1rem ;
+}
+
+.form-conf{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto;
+
+}
+
+.mt2{margin-top: 1rem;}
+
+.mb2{
+    margin-bottom: 0.5rem
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.label-file{
+    padding: 0.3rem;
+    width: 200px;
+    background-color: rgb(62, 192, 79);
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.label-file:hover{
+    background-color: darkgreen;
+
+}
+
+.login-flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
+
+.input-w400{
+    width: 400px;
+    max-width:400px;
+}
+
+.nav-bar{
+    display: flex;
+    justify-content: space-between;
+}
+
