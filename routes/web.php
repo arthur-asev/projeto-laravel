@@ -13,15 +13,14 @@ Route::middleware(['auth'])->group(function(){
     Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/dogs/{id}',[DogController::class,'show'])->name('dogs.show');
-    Route::get('/dogs',[DogController::class,'index'])->name('dogs.index');
+
 });
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
