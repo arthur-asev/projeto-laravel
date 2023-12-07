@@ -8,6 +8,7 @@
     <title>@yield('title') - {{ config('app.name') }} </title>
     <link href="{{ url('css/app.css')}}" rel="stylesheet">
     <link href="{{ url('css/index.css')}}" rel="stylesheet">
+    <link href="{{ asset('site/bootstrap.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -27,5 +28,8 @@
 
 
 </body>
+
+<script src="{{asset('site/jquery.js')}}"></script>
+<script src="{{asset('site/bootstrap.js')}}"></script>
 
 </html>
