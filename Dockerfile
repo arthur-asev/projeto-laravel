@@ -1,108 +1,32 @@
-#
-#--------------------------------------------------------------------------
-# Image Setup
-#--------------------------------------------------------------------------
-#
+# Use a imagem oficial do PHP com Apache para a versão 8.2
+FROM php:8.2-apache
 
-FROM php:8.2-fpm
+# Instale as extensões do PHP necessárias
+RUN docker-php-ext-install pdo pdo_mysql
 
-# Set Environment Variables
-ENV DEBIAN_FRONTEND noninteractive
+# Instale o Composer globalmente
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-#
-#--------------------------------------------------------------------------
-# Software's Installation
-#--------------------------------------------------------------------------
-#
-# Installing tools and PHP extentions using "apt", "docker-php", "pecl",
-#
+# Atualize as informações do pacote e instale as dependências do Apache
+RUN apt-get update && \
+    apt-get install -y \
+    libapache2-mod-php
 
-# Install "curl", "libmemcached-dev", "libpq-dev", "libjpeg-dev",
-#         "libpng-dev", "libfreetype6-dev", "libssl-dev", "libmcrypt-dev",
-RUN set -eux; \
-    apt-get update; \
-    apt-get upgrade -y; \
-    apt-get install -y --no-install-recommends \
-            curl \
-            libmemcached-dev \
-            libz-dev \
-            libpq-dev \
-            libjpeg-dev \
-            libpng-dev \
-            libfreetype6-dev \
-            libssl-dev \
-            libwebp-dev \
-            libxpm-dev \
-            libmcrypt-dev \
-            libonig-dev; \
-    rm -rf /var/lib/apt/lists/*
+# Crie e defina o diretório de trabalho
+WORKDIR /var/www/html
 
-RUN set -eux; \
-    # Install the PHP pdo_mysql extention
-    docker-php-ext-install pdo_mysql; \
-    # Install the PHP pdo_pgsql extention
-    docker-php-ext-install pdo_pgsql; \
-    # Install the PHP gd library
-    docker-php-ext-configure gd \
-            --prefix=/usr \
-            --with-jpeg \
-            --with-webp \
-            --with-xpm \
-            --with-freetype; \
-    docker-php-ext-install gd; \
-    php -r 'var_dump(gd_info());'
+# Copie os arquivos do projeto para o contêiner
+COPY . /var/www/html
 
+# Instale as dependências do Laravel
+RUN composer install --optimize-autoloader --no-dev
 
-RUN apt update && apt install -y \
-        libaio1 \
-	libaio-dev \
-        libbz2-dev \
-        libcurl4-openssl-dev \
-        libffi-dev \
-        libldap2-dev \
-        libldb-dev \
-        libonig-dev \
-	libzip-dev \
-        libpng-dev \
-        libssl-dev \
-        unixodbc-dev \
-        unzip \
-        wget \
-        zlib1g-dev \
-	git \
-	vim \
-    && rm -rf /var/lib/apt/lists/*
+# Configurar o Apache
+RUN a2enmod rewrite
+COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
-RUN mkdir /opt/oracle \
-	&& wget https://download.oracle.com/otn_software/linux/instantclient/2111000/instantclient-basic-linux.x64-21.11.0.0.0dbru.zip \
-	&& wget https://download.oracle.com/otn_software/linux/instantclient/2111000/instantclient-sdk-linux.x64-21.11.0.0.0dbru.zip \
-	&& unzip instantclient-basic-linux.x64-21.11.0.0.0dbru.zip -d /opt/oracle \
-	&& unzip instantclient-sdk-linux.x64-21.11.0.0.0dbru.zip -d /opt/oracle \
-	&& rm -rf *.zip \
-	&& mv /opt/oracle/instantclient_21_11 /opt/oracle/instantclient
+# Exponha a porta 80
+EXPOSE 80
 
-ENV LD_LIBRARY_PATH /opt/oracle/instantclient/
-ENV ORACLE_HOME /opt/oracle/instantclient/
-
-RUN ldconfig
-
-RUN docker-php-source extract \
-    && docker-php-ext-install \
-        bz2 \
-        curl \
-        ffi \
-        fileinfo \
-        gd \
-        gettext \
-        ldap \
-        mbstring \
-        exif \
-        mysqli \
-	zip \
-    && docker-php-source delete
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-	&& php composer-setup.php \
-	&& php -r "unlink('composer-setup.php');" \
-	&& mv composer.phar /usr/local/bin/composer \
-	&& echo "instantclient,/opt/oracle/instantclient" | pecl install oci8-3.2.1 \
-        && echo "extension=oci8" > /usr/local/etc/php/conf.d/docker-php-ext-oci8.ini
+# Comando para iniciar o Apache
+CMD ["apache2-foreground"]
